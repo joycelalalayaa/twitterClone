@@ -8,6 +8,7 @@ console.log("server start on port " + port);
 const app: Express = express();
 
 app.get('/', (_req: Request, res: Response) => {
+    console.log("This code is running");
     res.send('Express + TypeScript Server');
 });
   
