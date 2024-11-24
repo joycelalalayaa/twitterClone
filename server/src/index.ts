@@ -1,18 +1,28 @@
 import dotenv from 'dotenv';
-import express, {Express, Request, Response} from "express";
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { AppDataSource } from './AppDataSource';
+import { buildSchema } from 'type-graphql';
+import { UserResolver } from './resolvers/userResolver';
 
 dotenv.config();
-const port =process.env.PORT;
+const port = process.env.PORT;
 
-console.log("server start on port " + port);
-const app: Express = express();
+async function setupServer(){
+    await AppDataSource.initialize();
+    console.log('Data source has been initialized');
+    const schema = await buildSchema({
+        resolvers: [UserResolver],
+    });
+    const server = new ApolloServer({
+        schema,
+    });
+    const { url } = await startStandaloneServer(server, {
+ 		listen: { port: parseInt(port) },
+ 	});
 
-app.get('/', (_req: Request, res: Response) => {
-    console.log("This code is running");
-    res.send('Express + TypeScript Server');
-});
-  
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
-});
-  
+ 	console.log(`🚀  Server ready at: ${url}`);
+}
+
+
+setupServer()
