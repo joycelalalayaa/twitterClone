@@ -5,7 +5,7 @@ import { User } from "./entities/User";
 dotenv.config();
 
 const host = process.env.HOST;
-const portort = parseInt(process.env.DATABASE_PORT);
+const port = parseInt(process.env.DATABASE_PORT);
 const username = process.env.DATABASE_USERNAME;
 const password = process.env.DATABASE_PASSWORD;
 const database = process.env.DATABASE;
@@ -13,11 +13,11 @@ const database = process.env.DATABASE;
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: '',
-    password: '',
-    database: 'twitterclone',
+    host,
+    port,
+    username,
+    password,
+    database,
     synchronize: true,
     logging: false,
     // logging: true,
