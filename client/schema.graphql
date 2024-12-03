@@ -10,7 +10,7 @@ Indicates exactly one field must be supplied and this field must not be `null`.
 directive @oneOf on INPUT_OBJECT
 
 type Mutation {
-  createUser(age: Int!, lastName: String!, firstName: String!): User!
+  createUser(password: String!, username: String!): User!
 }
 
 type Query {
@@ -20,8 +20,7 @@ type Query {
 
 type User {
   id: String!
-  firstName: String!
-  lastName: String!
-  age: Float!
+  username: String!
+  password: String!
 }
 

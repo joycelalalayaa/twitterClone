@@ -1,3 +1,14 @@
+"use client";
+
+import React from "react";
+import HomeContent from "@/components/HomeContent";
+import RelayEnvionrment from "@/components/RelayEnvionrment";
+import { RelayEnvironmentProvider } from "react-relay";
+
 export default function Home() {
-  return <div>hello world</div>;
+  return (
+    <RelayEnvironmentProvider environment={RelayEnvionrment}>
+      <HomeContent />
+    </RelayEnvironmentProvider>
+  );
 }

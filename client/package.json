@@ -10,6 +10,8 @@
     "gen": "get-graphql-schema http://localhost:4000/graphql > schema.graphql && relay-compiler"
   },
   "dependencies": {
+    "@types/react-relay": "^16.0.6",
+    "@types/relay-runtime": "^18.2.0",
     "get-graphql-schema": "^2.1.2",
     "next": "15.0.3",
     "react": "^18.3.1",
