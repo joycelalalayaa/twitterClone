@@ -11,18 +11,31 @@ export class User extends BaseEntity {
   id: number; // Use "!" to avoid TypeScript initialization errors
 
   @Field()
-  @Column({unique: true})
-  username: string;
+  @Column()
+  firstName: string;
 
   @Field()
   @Column()
-  password: string;
+  lastName: string;
 
-  constructor(username: string = '', password: string = ''){
+  @Field()
+  @Column({ unique: true })
+  username: string;
+
+  @Column()
+  encryptedPassword: string;
+
+  constructor(
+    firstName: string = "",
+    lastName: string = "",
+    username: string = "",
+    password: string = ""
+  ) {
     super();
     this.id = 0;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.username = username;
-    this.password = password;
+    this.encryptedPassword = password;
   }
-
 }

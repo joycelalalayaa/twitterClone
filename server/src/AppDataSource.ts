@@ -23,5 +23,5 @@ export const AppDataSource = new DataSource({
   entities: [User],
   subscribers: [],
   migrations: [],
-//   dropSchema: true, // THIS WILL KILL ALL YOUR DATA!
+  // dropSchema: true, // THIS WILL KILL ALL YOUR DATA!
 });

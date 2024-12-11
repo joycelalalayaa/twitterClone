@@ -1,4 +1,5 @@
 import { User } from "../entities/User";
+import hashString from "../utils/hashString";
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 @Resolver()
@@ -18,12 +19,18 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  async createUser(
+  async registerUser(
+    @Arg("firstName", () => String) firstName: string,
+    @Arg("lastName", () => String) lastName: string,
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string
   ): Promise<User> {
-    const user = new User(username, password);
+    const hashedPassword = hashString(password);
+    const user = new User(firstName, lastName, username, password);
     // await new Promise((resolve) => setTimeout(resolve, 1000));
     return await user.save();
   }
 }
+
+
+

@@ -1,33 +1,43 @@
-import { graphql, useLazyLoadQuery, useMutation } from "react-relay";
-import { HomeContentQuery } from "./__generated__/HomeContentQuery.graphql";
+import { graphql, useMutation } from "react-relay";
 import { useState } from "react";
 import TextInputField from "./TextInputField";
 import Button from "./Button";
+import { HomeContent_CreateUserMutation } from "./__generated__/HomeContent_CreateUserMutation.graphql";
+import { toast } from "react-toastify";
 
-const QUERY = graphql`
-  query HomeContentQuery {
-    addNumbers(b: 7, a: 8)
-  }
-`;
+// const QUERY = graphql`
+//   query HomeContentQuery {
+//     addNumbers(b: 7, a: 8)
+//   }
+// `;
 
 const MUTATION = graphql`
-  mutation HomeContentCreateUserMutation(
-    $username: String!
+  mutation HomeContent_CreateUserMutation(
     $password: String!
+    $username: String!
+    $lastName: String!
+    $firstName: String!
   ) {
-    createUser(username: $username, password: $password) {
+    registerUser(
+      password: $password
+      username: $username
+      lastName: $lastName
+      firstName: $firstName
+    ) {
       id
       username
-      password
     }
   }
 `;
 
 export default function HomeContent(): JSX.Element {
-  const _result = useLazyLoadQuery<HomeContentQuery>(QUERY, {});
-  const [createUser, creatingUser] = useMutation(MUTATION);
+  // const _result = useLazyLoadQuery<HomeContentQuery>(QUERY, {});
+  const [createUser, creatingUser] =
+    useMutation<HomeContent_CreateUserMutation>(MUTATION);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-200 via-blue-100 to-blue-300 text-gray-800">
@@ -48,10 +58,24 @@ export default function HomeContent(): JSX.Element {
           <TextInputField
             value={password}
             onChange={setPassword}
+            type="password"
             placeholder="Enter your password"
+            maxLength={280}
+          />{" "}
+          <TextInputField
+            value={firstName}
+            onChange={setFirstName}
+            placeholder="Enter your first name"
+            maxLength={280}
+          />{" "}
+          <TextInputField
+            value={lastName}
+            onChange={setLastName}
+            placeholder="Enter your last name"
             maxLength={280}
           />
           <Button
+            variant="primary"
             label="Create Account"
             disabled={creatingUser}
             onClick={() => {
@@ -64,14 +88,16 @@ export default function HomeContent(): JSX.Element {
 
               createUser({
                 variables: {
+                  firstName,
+                  lastName,
                   username,
                   password,
                 },
                 onCompleted: () => {
-                  console.log("Created a user");
+                  toast.success("Created a user");
                 },
                 onError: () => {
-                  console.log("Error creating a user");
+                  toast.error("Error creating a user");
                 },
               });
             }}

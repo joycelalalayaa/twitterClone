@@ -5,6 +5,7 @@ interface TextInputFieldProps {
   onChange: (newValue: string) => void;
   placeholder: string;
   maxLength?: number;
+  type?: 'text' | 'password';
 }
 
 const TextInputField: React.FC<TextInputFieldProps> = ({
@@ -12,11 +13,12 @@ const TextInputField: React.FC<TextInputFieldProps> = ({
   onChange,
   placeholder,
   maxLength = 280,
+  type = 'text',
 }) => {
   return (
     <div className={`text-input-field`}>
       <input
-        type="text"
+        type={type}
         value={value}
         onChange={(event) => onChange(event.currentTarget.value)}
         placeholder={placeholder}
