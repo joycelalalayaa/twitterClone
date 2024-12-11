@@ -1,0 +1,9 @@
+Steps to run:
+
+Installing stuff:
+- If you haven't yet, in client, run "yarn", and in server, run "yarn" to install files
+
+Running code:
+- In client, run yarn dev
+- In server run yarn watch
+- In server run yarn dev
