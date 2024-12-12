@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9ed60933815651cfdf72cbb05ce81c3a>>
+ * @generated SignedSource<<e913bf5ac268194de4852803d5a0ee61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,21 +9,21 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from 'relay-runtime';
-export type HomeContent_CreateUserMutation$variables = {
+export type RegisterContent_CreateUserMutation$variables = {
   firstName: string;
   lastName: string;
   password: string;
   username: string;
 };
-export type HomeContent_CreateUserMutation$data = {
+export type RegisterContent_CreateUserMutation$data = {
   readonly registerUser: {
     readonly id: string;
     readonly username: string;
   };
 };
-export type HomeContent_CreateUserMutation = {
-  response: HomeContent_CreateUserMutation$data;
-  variables: HomeContent_CreateUserMutation$variables;
+export type RegisterContent_CreateUserMutation = {
+  response: RegisterContent_CreateUserMutation$data;
+  variables: RegisterContent_CreateUserMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -105,7 +105,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "HomeContent_CreateUserMutation",
+    "name": "RegisterContent_CreateUserMutation",
     "selections": (v4/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -119,20 +119,20 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "HomeContent_CreateUserMutation",
+    "name": "RegisterContent_CreateUserMutation",
     "selections": (v4/*: any*/)
   },
   "params": {
-    "cacheID": "0b419d95c1317bac72cba781bc9e7e9f",
+    "cacheID": "def8599cb9aae38625c110106e55cb95",
     "id": null,
     "metadata": {},
-    "name": "HomeContent_CreateUserMutation",
+    "name": "RegisterContent_CreateUserMutation",
     "operationKind": "mutation",
-    "text": "mutation HomeContent_CreateUserMutation(\n  $password: String!\n  $username: String!\n  $lastName: String!\n  $firstName: String!\n) {\n  registerUser(password: $password, username: $username, lastName: $lastName, firstName: $firstName) {\n    id\n    username\n  }\n}\n"
+    "text": "mutation RegisterContent_CreateUserMutation(\n  $password: String!\n  $username: String!\n  $lastName: String!\n  $firstName: String!\n) {\n  registerUser(password: $password, username: $username, lastName: $lastName, firstName: $firstName) {\n    id\n    username\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "24c3e940df868d181477c55da0083573";
+(node as any).hash = "f0e8e3a481e95b9f53145c435b7808ad";
 
 export default node;

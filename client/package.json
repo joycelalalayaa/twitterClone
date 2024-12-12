@@ -9,6 +9,15 @@
     "lint": "next lint",
     "gen": "get-graphql-schema http://localhost:4000/graphql > schema.graphql && relay-compiler"
   },
+  "relay": {
+    "language": "typescript",
+    "schema": "./schema.graphql",
+    "excludes": [
+      "**/node_modules/**",
+      "**/__mocks__/**",
+      "**/.next/**"
+    ]
+  },
   "dependencies": {
     "@types/react-relay": "^16.0.6",
     "@types/relay-runtime": "^18.2.0",
@@ -17,7 +26,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-relay": "^18.2.0",
-    "react-toastify": "^10.0.6"
+    "react-toastify": "^10.0.6",
+    "react-use-cookie": "^1.6.1"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -11,6 +11,7 @@ directive @oneOf on INPUT_OBJECT
 
 type Mutation {
   registerUser(password: String!, username: String!, lastName: String!, firstName: String!): User!
+  login(password: String!, username: String!): User
 }
 
 type Query {

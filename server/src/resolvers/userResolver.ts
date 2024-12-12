@@ -30,7 +30,23 @@ export class UserResolver {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
     return await user.save();
   }
+
+  @Mutation(() => User)
+  async login(
+    @Arg("username", () => String) username: string,
+    @Arg("password", () => String) password: string
+  ): Promise<User> {
+    const hashedPassword = hashString(password);
+    const user = await User.findOne({
+      where: {
+        username: username,
+        encryptedPassword: hashedPassword,
+      },
+    });
+
+    if (user == null) {
+      throw new Error("Incorrect login info");
+    }
+    return user;
+  }
 }
-
-
-

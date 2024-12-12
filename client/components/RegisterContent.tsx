@@ -4,11 +4,21 @@ import TextInputField from "./TextInputField";
 import Button from "./Button";
 import { toast } from "react-toastify";
 import useCookie from "react-use-cookie";
-import { LoginContent_LoginMutation } from "./__generated__/LoginContent_LoginMutation.graphql";
+import { RegisterContent_CreateUserMutation } from "./__generated__/RegisterContent_CreateUserMutation.graphql";
 
 const MUTATION = graphql`
-  mutation LoginContent_LoginMutation($password: String!, $username: String!) {
-    login(password: $password, username: $username) {
+  mutation RegisterContent_CreateUserMutation(
+    $password: String!
+    $username: String!
+    $lastName: String!
+    $firstName: String!
+  ) {
+    registerUser(
+      password: $password
+      username: $username
+      lastName: $lastName
+      firstName: $firstName
+    ) {
       id
       username
     }
@@ -16,10 +26,12 @@ const MUTATION = graphql`
 `;
 
 export default function LoginContent(): JSX.Element {
-  const [loginMutation, loggingIn] =
-    useMutation<LoginContent_LoginMutation>(MUTATION);
+  const [createUser, creatingUser] =
+    useMutation<RegisterContent_CreateUserMutation>(MUTATION);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [userCookie, setUserCookie] = useCookie("usernameCookie");
   const [passwordCookie, setPasswordCookie] = useCookie("passwordCookie");
   console.log("userCookie is" + userCookie);
@@ -29,7 +41,7 @@ export default function LoginContent(): JSX.Element {
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-200 via-blue-100 to-blue-300 text-gray-800">
       <div className="p-8 max-w-md w-full bg-white rounded-xl shadow-2xl">
         <h1 className="text-3xl font-extrabold text-center text-blue-600 mb-4">
-          Log in
+          Create your account
         </h1>
         <div className="flex flex-col gap-5">
           <TextInputField
@@ -45,10 +57,22 @@ export default function LoginContent(): JSX.Element {
             placeholder="Enter your password"
             maxLength={280}
           />{" "}
+          <TextInputField
+            value={firstName}
+            onChange={setFirstName}
+            placeholder="Enter your first name"
+            maxLength={280}
+          />{" "}
+          <TextInputField
+            value={lastName}
+            onChange={setLastName}
+            placeholder="Enter your last name"
+            maxLength={280}
+          />
           <Button
             variant="primary"
-            label="Log in"
-            disabled={loggingIn}
+            label="Create Account"
+            disabled={creatingUser}
             onClick={() => {
               console.log(
                 "Creating user with username: " +
@@ -57,19 +81,20 @@ export default function LoginContent(): JSX.Element {
                   password
               );
 
-              loginMutation({
+              createUser({
                 variables: {
+                  firstName,
+                  lastName,
                   username,
                   password,
                 },
                 onCompleted: () => {
-                  toast.success("Logged in!");
+                  toast.success("Created a user");
                   setUserCookie(username);
                   setPasswordCookie(password);
                 },
-                onError: (error) => {
-                  console.log(error);
-                  toast.error("Error logging in");
+                onError: () => {
+                  toast.error("Error creating a user");
                 },
               });
             }}

@@ -6,7 +6,6 @@ module.exports = {
   excludes: [
     "**/node_modules/**",
     "**/__mocks__/**",
-    "**/__generated__/**",
     "**/.next/**",
   ],
 };

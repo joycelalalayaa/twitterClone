@@ -2562,6 +2562,11 @@ react-toastify@^10.0.6:
   dependencies:
     clsx "^2.1.0"
 
+react-use-cookie@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/react-use-cookie/-/react-use-cookie-1.6.1.tgz#e8d3b2ec89e0f5fbe188a2f28fd9fea67a3e4218"
+  integrity sha512-77bENFpc+pi1roLJIrRvekprB4IjwG1Mowir0QdbwA0pDjgMtp3Ya9E1H9dJAisCxBvTZih6k5+2SSVo9BR2qw==
+
 react@^18.3.1:
   version "18.3.1"
   resolved "https://registry.yarnpkg.com/react/-/react-18.3.1.tgz#49ab892009c53933625bd16b2533fc754cab2891"
