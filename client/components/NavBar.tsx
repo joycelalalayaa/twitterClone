@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import { useRouter } from "next/navigation";
 import LoginButtonSection from "./LoginButtonSection";
@@ -21,7 +23,7 @@ export default function NavBar(): JSX.Element {
         </ul>
 
         {/* Right Section (User Actions) */}
-        <LoginButtonSection/>
+        <LoginButtonSection />
       </div>
     </nav>
   );

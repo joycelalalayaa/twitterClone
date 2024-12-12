@@ -18,21 +18,8 @@ export class UserResolver {
     return users;
   }
 
-  @Mutation(() => User)
-  async registerUser(
-    @Arg("firstName", () => String) firstName: string,
-    @Arg("lastName", () => String) lastName: string,
-    @Arg("username", () => String) username: string,
-    @Arg("password", () => String) password: string
-  ): Promise<User> {
-    const hashedPassword = hashString(password);
-    const user = new User(firstName, lastName, username, password);
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-    return await user.save();
-  }
-
-  @Mutation(() => User)
-  async login(
+  @Query(() => [User])
+  async genUser(
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string
   ): Promise<User> {
@@ -48,5 +35,25 @@ export class UserResolver {
       throw new Error("Incorrect login info");
     }
     return user;
+  }
+
+  @Mutation(() => User)
+  async registerUser(
+    @Arg("firstName", () => String) firstName: string,
+    @Arg("lastName", () => String) lastName: string,
+    @Arg("username", () => String) username: string,
+    @Arg("password", () => String) password: string
+  ): Promise<User> {
+    const hashedPassword = hashString(password);
+    const user = new User(firstName, lastName, username, hashedPassword);
+    return await user.save();
+  }
+
+  @Mutation(() => User)
+  async login(
+    @Arg("username", () => String) username: string,
+    @Arg("password", () => String) password: string
+  ): Promise<User> {
+    return await this.genUser(username, password);
   }
 }

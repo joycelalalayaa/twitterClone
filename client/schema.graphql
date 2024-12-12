@@ -11,12 +11,13 @@ directive @oneOf on INPUT_OBJECT
 
 type Mutation {
   registerUser(password: String!, username: String!, lastName: String!, firstName: String!): User!
-  login(password: String!, username: String!): User
+  login(password: String!, username: String!): User!
 }
 
 type Query {
   addNumbers(b: Float!, a: Float!): Float!
   genAllUsers: [User!]!
+  genUser(password: String!, username: String!): [User!]!
 }
 
 type User {

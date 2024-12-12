@@ -1,10 +1,10 @@
 import { graphql, useMutation } from "react-relay";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import TextInputField from "./TextInputField";
 import Button from "./Button";
 import { toast } from "react-toastify";
-import useCookie from "react-use-cookie";
 import { LoginContent_LoginMutation } from "./__generated__/LoginContent_LoginMutation.graphql";
+import { AuthContext } from "./AuthContext";
 
 const MUTATION = graphql`
   mutation LoginContent_LoginMutation($password: String!, $username: String!) {
@@ -20,10 +20,7 @@ export default function LoginContent(): JSX.Element {
     useMutation<LoginContent_LoginMutation>(MUTATION);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userCookie, setUserCookie] = useCookie("usernameCookie");
-  const [passwordCookie, setPasswordCookie] = useCookie("passwordCookie");
-  console.log("userCookie is" + userCookie);
-  console.log("passwordCookie is" + passwordCookie);
+  const {setAuth} = useContext(AuthContext);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-200 via-blue-100 to-blue-300 text-gray-800">
@@ -64,8 +61,9 @@ export default function LoginContent(): JSX.Element {
                 },
                 onCompleted: () => {
                   toast.success("Logged in!");
-                  setUserCookie(username);
-                  setPasswordCookie(password);
+                  setAuth(username, password);
+                  setUsername('');
+                  setPassword('');
                 },
                 onError: (error) => {
                   console.log(error);
