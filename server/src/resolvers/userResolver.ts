@@ -18,11 +18,11 @@ export class UserResolver {
     return users;
   }
 
-  @Query(() => [User])
+  @Query(() => User, { nullable: true })
   async genUser(
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string
-  ): Promise<User> {
+  ): Promise<User | null> {
     const hashedPassword = hashString(password);
     const user = await User.findOne({
       where: {
@@ -30,10 +30,7 @@ export class UserResolver {
         encryptedPassword: hashedPassword,
       },
     });
-
-    if (user == null) {
-      throw new Error("Incorrect login info");
-    }
+    console.log("Returning ", user);
     return user;
   }
 
@@ -54,6 +51,10 @@ export class UserResolver {
     @Arg("username", () => String) username: string,
     @Arg("password", () => String) password: string
   ): Promise<User> {
-    return await this.genUser(username, password);
+    const user = await this.genUser(username, password);
+    if (user == null) {
+      throw new Error("Incorrect login info");
+    }
+    return user;
   }
 }

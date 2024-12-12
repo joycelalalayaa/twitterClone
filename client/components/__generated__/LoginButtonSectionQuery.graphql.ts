@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<597ed73930f0a1ba3386674442cf4fbd>>
+ * @generated SignedSource<<7d865f0a400b500de652bbbdb59b31ef>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,11 +14,11 @@ export type LoginButtonSectionQuery$variables = {
   username: string;
 };
 export type LoginButtonSectionQuery$data = {
-  readonly genUser: ReadonlyArray<{
+  readonly genUser: {
     readonly firstName: string;
     readonly id: string;
     readonly lastName: string;
-  }>;
+  };
 };
 export type LoginButtonSectionQuery = {
   response: LoginButtonSectionQuery$data;
@@ -38,58 +38,62 @@ var v0 = [
     "name": "username"
   }
 ],
-v1 = [
-  {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "password",
-        "variableName": "password"
-      },
-      {
-        "kind": "Variable",
-        "name": "username",
-        "variableName": "username"
-      }
-    ],
-    "concreteType": "User",
-    "kind": "LinkedField",
-    "name": "genUser",
-    "plural": true,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "firstName",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "lastName",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+v1 = {
+  "alias": null,
+  "args": [
+    {
+      "kind": "Variable",
+      "name": "password",
+      "variableName": "password"
+    },
+    {
+      "kind": "Variable",
+      "name": "username",
+      "variableName": "username"
+    }
+  ],
+  "concreteType": "User",
+  "kind": "LinkedField",
+  "name": "genUser",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "firstName",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "lastName",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "LoginButtonSectionQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "kind": "RequiredField",
+        "field": (v1/*: any*/),
+        "action": "THROW"
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -98,7 +102,9 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "LoginButtonSectionQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      (v1/*: any*/)
+    ]
   },
   "params": {
     "cacheID": "86a10b1ade99292a7d64223a14d9e153",
@@ -111,6 +117,6 @@ return {
 };
 })();
 
-(node as any).hash = "d06ebd6c1b49205ceaaab1aef8bdae73";
+(node as any).hash = "1b10d5eabc87794b8c24e9b0d03f90b0";
 
 export default node;

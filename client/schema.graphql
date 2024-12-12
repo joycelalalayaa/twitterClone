@@ -17,7 +17,7 @@ type Mutation {
 type Query {
   addNumbers(b: Float!, a: Float!): Float!
   genAllUsers: [User!]!
-  genUser(password: String!, username: String!): [User!]!
+  genUser(password: String!, username: String!): User
 }
 
 type User {

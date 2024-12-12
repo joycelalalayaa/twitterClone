@@ -4,16 +4,8 @@ import { graphql } from "relay-runtime";
 import useCookie from "react-use-cookie";
 import { AuthContext } from "./AuthContext";
 import { useContext } from "react";
-
-const QUERY = graphql`
-  query LoginButtonSectionQuery($password: String!, $username: String!) {
-    genUser(password: $password, username: $username) {
-      id
-      firstName
-      lastName
-    }
-  }
-`;
+import { useLazyLoadQuery } from "react-relay";
+import { LoginButtonSectionQuery } from "./__generated__/LoginButtonSectionQuery.graphql";
 export default function LoginButtonSection(): JSX.Element {
   const router = useRouter();
   const { username } = useContext(AuthContext);
@@ -37,11 +29,28 @@ export default function LoginButtonSection(): JSX.Element {
   );
 }
 
+const QUERY = graphql`
+  query LoginButtonSectionQuery($password: String!, $username: String!) {
+    genUser(password: $password, username: $username) @required(action: THROW) {
+      id
+      firstName
+      lastName
+    }
+  }
+`;
+
 function LoggedInSection(): JSX.Element {
-  const { setAuth } = useContext(AuthContext);
+  const { username, password, setAuth } = useContext(AuthContext);
+  const data = useLazyLoadQuery<LoginButtonSectionQuery>(QUERY, {
+    username,
+    password,
+  });
+  const { firstName, lastName } = data.genUser;
   return (
     <div className="flex gap-4">
-      <div>Logged in secton</div>
+      <div>
+        Hello {firstName} {lastName}{" "}
+      </div>
       <div
         className="underline text-white-700"
         onClick={() => {
