@@ -1,10 +1,10 @@
-import { Arg, Mutation, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { UserResolver } from "./userResolver";
 import { Post } from "../entities/Post";
 
 @Resolver()
 export class PostResolver {
-  
+
   @Mutation(() => Post)
   async createPost(
     @Arg("username", () => String) username: string,
@@ -17,6 +17,11 @@ export class PostResolver {
     }
     const post = await new Post(content, me).save();
     return post;
+  }
+
+  @Query(() => [Post])
+  async genAllPosts(): Promise<Post[]>{
+    return await Post.find({});
   }
 
 }

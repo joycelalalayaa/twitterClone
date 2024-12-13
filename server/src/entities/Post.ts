@@ -23,18 +23,30 @@ export class Post extends BaseEntity {
   @Column()
   content: string;
 
-  @ManyToOne(()=> User, (user) => user.posts)
+  @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn()
-  author!: User
+  author!: User;
 
-  constructor(
-    content: string = " ", author: User|null = null
-  ) {
+  @Field(() => User)
+  async genAuthor(): Promise<User> {
+    const post = await Post.findOne({
+      where: { id: this.id }, 
+      relations: ["author"], 
+    });
+
+    if (!post || !post.author) {
+      throw new Error("Author not found");
+    }
+
+    return post.author;
+  }
+
+  constructor(content: string = " ", author: User | null = null) {
     super();
     this.createdAt = new Date();
     this.updatedAt = new Date();
     this.content = content;
-    if(author != null){
+    if (author != null) {
       this.author = author;
     }
   }
