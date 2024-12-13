@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c6305e788daddd7ac098635aaaae5378>>
+ * @generated SignedSource<<a78a0b898b4f91076ff77fed684a2b7a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type PostBox_user$data = {
   readonly firstName: string;
   readonly lastName: string;
+  readonly username: string;
   readonly " $fragmentType": "PostBox_user";
 };
 export type PostBox_user$key = {
@@ -39,12 +40,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "lastName",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "username",
+      "storageKey": null
     }
   ],
   "type": "User",
   "abstractKey": null
 };
 
-(node as any).hash = "4eee4de488c824321b52e71086607606";
+(node as any).hash = "4e4b5eb020749c71daf6a725d5473419";
 
 export default node;
