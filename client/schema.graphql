@@ -29,12 +29,14 @@ type Post {
   createdAt: DateTimeISO!
   updatedAt: DateTimeISO!
   content: String!
+  genAuthor: User!
 }
 
 type Query {
   addNumbers(b: Float!, a: Float!): Float!
   genAllUsers: [User!]!
   genUser(password: String!, username: String!): User
+  genAllPosts: [Post!]!
 }
 
 type User {

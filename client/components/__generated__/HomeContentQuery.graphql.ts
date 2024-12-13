@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d5c585752c9a8dd2c57f9dff7a9b5a81>>
+ * @generated SignedSource<<ca6de0314ee301bab3054cf05423ef65>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,10 @@ export type HomeContentQuery$variables = {
   username: string;
 };
 export type HomeContentQuery$data = {
+  readonly genAllPosts: ReadonlyArray<{
+    readonly id: string;
+    readonly " $fragmentSpreads": FragmentRefs<"TweetDisplay_post">;
+  }>;
   readonly genUser: {
     readonly firstName: string;
     readonly id: string;
@@ -72,6 +76,13 @@ v4 = {
   "kind": "ScalarField",
   "name": "lastName",
   "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "username",
+  "storageKey": null
 };
 return {
   "fragment": {
@@ -98,6 +109,23 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Post",
+        "kind": "LinkedField",
+        "name": "genAllPosts",
+        "plural": true,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "TweetDisplay_post"
+          }
+        ],
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -119,23 +147,64 @@ return {
         "selections": [
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/)
+          (v4/*: any*/),
+          (v5/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Post",
+        "kind": "LinkedField",
+        "name": "genAllPosts",
+        "plural": true,
+        "selections": [
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "content",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "genAuthor",
+            "plural": false,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "updatedAt",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "dfa1e4da0a02af7437039b3cc491ff47",
+    "cacheID": "f8030dbb005a6d07a8cc250480912eec",
     "id": null,
     "metadata": {},
     "name": "HomeContentQuery",
     "operationKind": "query",
-    "text": "query HomeContentQuery(\n  $password: String!\n  $username: String!\n) {\n  genUser(password: $password, username: $username) {\n    id\n    firstName\n    lastName\n    ...PostBox_user\n  }\n}\n\nfragment PostBox_user on User {\n  firstName\n  lastName\n}\n"
+    "text": "query HomeContentQuery(\n  $password: String!\n  $username: String!\n) {\n  genUser(password: $password, username: $username) {\n    id\n    firstName\n    lastName\n    ...PostBox_user\n  }\n  genAllPosts {\n    id\n    ...TweetDisplay_post\n  }\n}\n\nfragment PostBox_user on User {\n  firstName\n  lastName\n  username\n}\n\nfragment TweetDisplay_post on Post {\n  id\n  content\n  genAuthor {\n    firstName\n    lastName\n    ...PostBox_user\n  }\n  updatedAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d060e1b3b4b529021df39525c6ee47f8";
+(node as any).hash = "5e0dbc72b0c7f38c0fcc8dca9e1dc9e3";
 
 export default node;

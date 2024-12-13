@@ -7,6 +7,7 @@ declare global {
       DATABASE_USERNAME: string;
       DATABASE_PASSWORD: string;
       DATABASE: string;
+      DATABASE_URL: string;
     }
   }
 }

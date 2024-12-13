@@ -1,27 +1,25 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { UserResolver } from "./userResolver";
-import { Post } from "../entities/Post";
+import { Arg, Mutation, Query, Resolver } from 'type-graphql';
+import { UserResolver } from './userResolver';
+import { Post } from '../entities/Post';
 
 @Resolver()
 export class PostResolver {
+	@Mutation(() => Post)
+	async createPost(
+		@Arg('username', () => String) username: string,
+		@Arg('password', () => String) password: string,
+		@Arg('content', () => String) content: string
+	): Promise<Post> {
+		const me = await new UserResolver().genUser(username, password);
+		if (me == null) {
+			throw new Error('need to be logged into post!');
+		}
+		const post = await new Post(content, me).save();
+		return post;
+	}
 
-  @Mutation(() => Post)
-  async createPost(
-    @Arg("username", () => String) username: string,
-    @Arg("password", () => String) password: string,
-    @Arg("content", () => String) content: string,
-  ): Promise<Post> {
-    const me = await new UserResolver().genUser(username, password);
-    if(me == null){
-      throw new Error("need to be logged into post!");
-    }
-    const post = await new Post(content, me).save();
-    return post;
-  }
-
-  @Query(() => [Post])
-  async genAllPosts(): Promise<Post[]>{
-    return await Post.find({});
-  }
-
+	@Query(() => [Post])
+	async genAllPosts(): Promise<Post[]> {
+		return await Post.find({ order: { updatedAt: 'DESC' } });
+	}
 }
