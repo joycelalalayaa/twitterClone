@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
-import { DataSource } from 'typeorm';
-import { User } from './entities/User';
-import { Post } from './entities/Post';
+import dotenv from "dotenv";
+import { DataSource } from "typeorm";
+import { User } from "./entities/User";
+import { Post } from "./entities/Post";
 
 dotenv.config();
 
@@ -12,17 +12,17 @@ const password = process.env.DATABASE_PASSWORD;
 const database = process.env.DATABASE;
 
 export const AppDataSource = new DataSource({
-	type: 'postgres',
-	host,
-	port,
-	username,
-	password,
-	database,
-	synchronize: true,
-	logging: false,
-	// logging: true,
-	entities: [User, Post],
-	subscribers: [],
-	migrations: [],
-	// dropSchema: true, // THIS WILL KILL ALL YOUR DATA!
+  type: "postgres",
+  host,
+  port,
+  username,
+  password,
+  database,
+  synchronize: true,
+  logging: false,
+  // logging: true,
+  entities: [User, Post],
+  subscribers: [],
+  migrations: [],
+  //   dropSchema: true, // THIS WILL KILL ALL YOUR DATA!
 });

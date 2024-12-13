@@ -38,13 +38,17 @@ type Query {
   addNumbers(b: Float!, a: Float!): Float!
   genAllUsers: [User!]!
   genUser(password: String!, username: String!): User
+  genUserByID(user_id: String!): User
   genAllPosts: [Post!]!
 }
 
 type User {
   id: String!
+  createdAt: DateTimeISO!
+  updatedAt: DateTimeISO!
   firstName: String!
   lastName: String!
   username: String!
+  genPosts: [Post!]!
 }
 

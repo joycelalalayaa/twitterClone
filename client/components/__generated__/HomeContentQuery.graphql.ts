@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ca6de0314ee301bab3054cf05423ef65>>
+ * @generated SignedSource<<0e496dbc956a185764717eef71870653>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -178,6 +178,7 @@ return {
             "selections": [
               (v3/*: any*/),
               (v4/*: any*/),
+              (v2/*: any*/),
               (v5/*: any*/)
             ],
             "storageKey": null
@@ -195,12 +196,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f8030dbb005a6d07a8cc250480912eec",
+    "cacheID": "917a0c72337d01025c3818e37310e69a",
     "id": null,
     "metadata": {},
     "name": "HomeContentQuery",
     "operationKind": "query",
-    "text": "query HomeContentQuery(\n  $password: String!\n  $username: String!\n) {\n  genUser(password: $password, username: $username) {\n    id\n    firstName\n    lastName\n    ...PostBox_user\n  }\n  genAllPosts {\n    id\n    ...TweetDisplay_post\n  }\n}\n\nfragment PostBox_user on User {\n  firstName\n  lastName\n  username\n}\n\nfragment TweetDisplay_post on Post {\n  id\n  content\n  genAuthor {\n    firstName\n    lastName\n    ...PostBox_user\n  }\n  updatedAt\n}\n"
+    "text": "query HomeContentQuery(\n  $password: String!\n  $username: String!\n) {\n  genUser(password: $password, username: $username) {\n    id\n    firstName\n    lastName\n    ...PostBox_user\n  }\n  genAllPosts {\n    id\n    ...TweetDisplay_post\n  }\n}\n\nfragment PostBox_user on User {\n  id\n  firstName\n  lastName\n  username\n}\n\nfragment TweetDisplay_post on Post {\n  id\n  content\n  genAuthor {\n    firstName\n    lastName\n    ...PostBox_user\n  }\n  updatedAt\n}\n"
   }
 };
 })();

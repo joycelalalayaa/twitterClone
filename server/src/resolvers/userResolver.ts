@@ -33,6 +33,18 @@ export class UserResolver {
     return user;
   }
 
+  @Query(() => User, { nullable: true })
+  async genUserByID(
+    @Arg("user_id", () => String) user_id: string
+  ): Promise<User | null> {
+    const user = await User.findOneOrFail({
+      where: {
+        id: user_id,
+      },
+    });
+    return user;
+  }
+
   @Mutation(() => User)
   async registerUser(
     @Arg("firstName", () => String) firstName: string,

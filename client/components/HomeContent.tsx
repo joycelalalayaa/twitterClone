@@ -1,6 +1,6 @@
 import { graphql, useLazyLoadQuery } from "react-relay";
 import PostBox from "./PostBox";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
 import { HomeContentQuery } from "./__generated__/HomeContentQuery.graphql";
 import TweetDisplay from "./TweetDisplay";
@@ -8,7 +8,7 @@ import TweetDisplay from "./TweetDisplay";
 const QUERY = graphql`
   query HomeContentQuery($password: String!, $username: String!) {
     genUser(password: $password, username: $username) {
-      id
+    id
       firstName
       lastName
       ...PostBox_user

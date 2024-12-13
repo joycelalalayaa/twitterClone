@@ -1,8 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import 'reflect-metadata';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from "typeorm";
+import "reflect-metadata";
 import { Field, ObjectType } from "type-graphql";
 import { User } from "./User";
-
 
 @ObjectType()
 @Entity()
@@ -30,8 +38,8 @@ export class Post extends BaseEntity {
   @Field(() => User)
   async genAuthor(): Promise<User> {
     const post = await Post.findOne({
-      where: { id: this.id }, 
-      relations: ["author"], 
+      where: { id: this.id },
+      relations: ["author"],
     });
 
     if (!post || !post.author) {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a78a0b898b4f91076ff77fed684a2b7a>>
+ * @generated SignedSource<<81f2963f8b24d368c48b8555b4b150c1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type PostBox_user$data = {
   readonly firstName: string;
+  readonly id: string;
   readonly lastName: string;
   readonly username: string;
   readonly " $fragmentType": "PostBox_user";
@@ -27,6 +28,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "PostBox_user",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -53,6 +61,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "4e4b5eb020749c71daf6a725d5473419";
+(node as any).hash = "8d1ba0526fa705b631bc45e0e4a94ee0";
 
 export default node;

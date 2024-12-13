@@ -10,9 +10,11 @@ import { AuthContext } from "./AuthContext";
 import { toast } from "react-toastify";
 import { PostBoxEditPostMutation } from "./__generated__/PostBoxEditPostMutation.graphql";
 import { PostBoxDeletePostMutation } from "./__generated__/PostBoxDeletePostMutation.graphql";
+import { useRouter } from "next/navigation";
 
 const FRAGMENT = graphql`
   fragment PostBox_user on User {
+    id
     firstName
     lastName
     username
@@ -76,11 +78,12 @@ export default function PostBox({
   postDate,
   postId,
 }: Props): JSX.Element {
+  const router = useRouter();
   const user = useFragment<PostBox_user$key>(FRAGMENT, user$key);
   const [createMutation, creatingMutation] =
     useMutation<PostBoxCreatePostMutation>(CREATE_POST_MUTATION);
   const [postContent, setPostContent] = useState(postInitialContent);
-  const [editMutation, editingMutatino] =
+  const [editMutation] =
     useMutation<PostBoxEditPostMutation>(EDIT_POST_MUTATION);
   const [deleteMutation] =
     useMutation<PostBoxDeletePostMutation>(DELETE_POST_MUTATION);
@@ -174,17 +177,27 @@ export default function PostBox({
   );
 
   const shouldShowEditDeleteSection = username === user.username;
+  const goToUserPage = () => {
+    if (!editable) {
+      router.push("/user?user_id=" + user.id);
+    }
+  };
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 w-[500px] mx-auto my-2">
       <div className="flex items-start space-x-4">
         {/* User Avatar */}
-        <UserAvatar initials={initials} />
+        <div onClick={goToUserPage}>
+          <UserAvatar initials={initials} />
+        </div>
 
         {/* Post Input Section */}
         <div className="flex-grow">
-          <div className="flex justify-between">
-            <div className="text-gray-900 text-md font-bold">
+          <div className="flex justify-between" onClick={goToUserPage}>
+            <div
+              className="text-gray-900 text-md font-bold"
+              onClick={goToUserPage}
+            >
               {user.username}
             </div>
             <div className="text-gray-500 text-sm pt-2">{postDate}</div>
