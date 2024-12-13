@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { graphql } from "relay-runtime";
 import { PostBox_user$key } from "./__generated__/PostBox_user.graphql";
-import { useFragment } from "react-relay";
+import { useFragment, useMutation } from "react-relay";
+import Button from "./Button";
+import TextArea from "./TextArea";
+import UserAvatar from "./UserAvatar";
+import { PostBoxCreatePostMutation } from "./__generated__/PostBoxCreatePostMutation.graphql";
+import { AuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
 
 const FRAGMENT = graphql`
   fragment PostBox_user on User {
     firstName
     lastName
+  }
+`;
+const CREATE_POST_MUTATION = graphql`
+  mutation PostBoxCreatePostMutation(
+    $username: String!
+    $password: String!
+    $content: String!
+  ) {
+    createPost(username: $username, password: $password, content: $content) {
+      id
+      createdAt
+    }
   }
 `;
 
@@ -15,16 +33,10 @@ interface Props {
 }
 export default function PostBox({ user: user$key }: Props): JSX.Element {
   const user = useFragment<PostBox_user$key>(FRAGMENT, user$key);
+  const [createMutation, creatingMutation] =
+    useMutation<PostBoxCreatePostMutation>(CREATE_POST_MUTATION);
   const [postContent, setPostContent] = useState("");
-
-  const handlePostSubmit = () => {
-    if (postContent.trim() === "") {
-      alert("Post content cannot be empty!");
-      return;
-    }
-    console.log("New Post:", postContent);
-    setPostContent("");
-  };
+  const { username, password } = useContext(AuthContext);
 
   const initials = `${user.firstName[0]}${user.lastName[0]}`.toUpperCase();
 
@@ -32,26 +44,33 @@ export default function PostBox({ user: user$key }: Props): JSX.Element {
     <div className="bg-white shadow-md rounded-lg p-4 w-full max-w-lg mx-auto">
       <div className="flex items-start space-x-4">
         {/* User Avatar */}
-        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
-          {initials}
-        </div>
+        <UserAvatar initials={initials} />
 
         {/* Post Input Section */}
         <div className="flex-grow">
-          <textarea
-            className="w-full bg-gray-100 rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            rows={3}
-            placeholder="What's happening?"
-            value={postContent}
-            onChange={(e) => setPostContent(e.target.value)}
-          />
+          <TextArea value={postContent} setValue={setPostContent} />
           <div className="flex justify-end mt-2">
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-200"
-              onClick={handlePostSubmit}
-            >
-              Post
-            </button>
+            <Button
+              label="Post"
+              onClick={() =>
+                createMutation({
+                  variables: {
+                    content: postContent,
+                    username,
+                    password,
+                  },
+                  onCompleted: () => {
+                    setPostContent("");
+                    toast.success("Post created!");
+                  },
+                  onError: () => {
+                    setPostContent("");
+                    toast.success("Unable to create post!");
+                  },
+                })
+              }
+              variant="primary"
+            />
           </div>
         </div>
       </div>

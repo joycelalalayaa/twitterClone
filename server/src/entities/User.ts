@@ -1,14 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm";
 import 'reflect-metadata';
 import { Field, ObjectType } from "type-graphql";
+import { Post } from "./Post";
 
 
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
   @Field(() => String)
-  @PrimaryGeneratedColumn()
-  id: number; // Use "!" to avoid TypeScript initialization errors
+  @PrimaryGeneratedColumn("uuid")
+  id!: string; // Use "!" to avoid TypeScript initialization errors
 
   @Field()
   @Column()
@@ -25,6 +26,9 @@ export class User extends BaseEntity {
   @Column()
   encryptedPassword: string;
 
+  @OneToMany(()=>Post, (post) => post.author)
+  posts!: Post[];
+
   constructor(
     firstName: string = "",
     lastName: string = "",
@@ -32,7 +36,6 @@ export class User extends BaseEntity {
     password: string = ""
   ) {
     super();
-    this.id = 0;
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = username;

@@ -4,6 +4,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { AppDataSource } from './AppDataSource';
 import { buildSchema } from 'type-graphql';
 import { UserResolver } from './resolvers/userResolver';
+import { PostResolver } from './resolvers/postResolver';
 
 dotenv.config();
 const port = process.env.PORT;
@@ -12,7 +13,7 @@ async function setupServer(){
     await AppDataSource.initialize();
     console.log('Data source has been initialized');
     const schema = await buildSchema({
-        resolvers: [UserResolver],
+        resolvers: [UserResolver, PostResolver],
     });
     const server = new ApolloServer({
         schema,

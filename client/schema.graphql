@@ -9,9 +9,26 @@ Indicates exactly one field must be supplied and this field must not be `null`.
 """
 directive @oneOf on INPUT_OBJECT
 
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the
+`date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO
+8601 standard for representation of dates and times using the Gregorian
+calendar.This scalar is serialized to a string in ISO 8601 format and parsed
+from a string in ISO 8601 format.
+"""
+scalar DateTimeISO
+
 type Mutation {
   registerUser(password: String!, username: String!, lastName: String!, firstName: String!): User!
   login(password: String!, username: String!): User!
+  createPost(content: String!, password: String!, username: String!): Post!
+}
+
+type Post {
+  id: String!
+  createdAt: DateTimeISO!
+  updatedAt: DateTimeISO!
+  content: String!
 }
 
 type Query {

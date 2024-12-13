@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import { DataSource } from "typeorm";
 import { User } from "./entities/User";
+import { Post } from "./entities/Post";
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: false,
   // logging: true,
-  entities: [User],
+  entities: [User, Post],
   subscribers: [],
   migrations: [],
   // dropSchema: true, // THIS WILL KILL ALL YOUR DATA!
