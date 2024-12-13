@@ -30,7 +30,6 @@ export class UserResolver {
         encryptedPassword: hashedPassword,
       },
     });
-    console.log("Returning ", user);
     return user;
   }
 

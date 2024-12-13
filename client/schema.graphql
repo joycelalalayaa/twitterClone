@@ -22,6 +22,8 @@ type Mutation {
   registerUser(password: String!, username: String!, lastName: String!, firstName: String!): User!
   login(password: String!, username: String!): User!
   createPost(content: String!, password: String!, username: String!): Post!
+  deletePost(post_id: String!, password: String!, username: String!): Post!
+  editPost(content: String!, post_id: String!, password: String!, username: String!): Post!
 }
 
 type Post {

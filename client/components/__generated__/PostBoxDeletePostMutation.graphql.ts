@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d4706c1ac8bd81bdaf5b279914968705>>
+ * @generated SignedSource<<59627028583476e44d8d81be5763a25d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,31 +9,31 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from 'relay-runtime';
-export type PostBoxCreatePostMutation$variables = {
-  content: string;
+export type PostBoxDeletePostMutation$variables = {
   password: string;
+  postId: string;
   username: string;
 };
-export type PostBoxCreatePostMutation$data = {
-  readonly createPost: {
+export type PostBoxDeletePostMutation$data = {
+  readonly deletePost: {
     readonly id: string;
   };
 };
-export type PostBoxCreatePostMutation = {
-  response: PostBoxCreatePostMutation$data;
-  variables: PostBoxCreatePostMutation$variables;
+export type PostBoxDeletePostMutation = {
+  response: PostBoxDeletePostMutation$data;
+  variables: PostBoxDeletePostMutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
 var v0 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "content"
+  "name": "password"
 },
 v1 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "password"
+  "name": "postId"
 },
 v2 = {
   "defaultValue": null,
@@ -46,13 +46,13 @@ v3 = [
     "args": [
       {
         "kind": "Variable",
-        "name": "content",
-        "variableName": "content"
+        "name": "password",
+        "variableName": "password"
       },
       {
         "kind": "Variable",
-        "name": "password",
-        "variableName": "password"
+        "name": "post_id",
+        "variableName": "postId"
       },
       {
         "kind": "Variable",
@@ -62,7 +62,7 @@ v3 = [
     ],
     "concreteType": "Post",
     "kind": "LinkedField",
-    "name": "createPost",
+    "name": "deletePost",
     "plural": false,
     "selections": [
       {
@@ -85,7 +85,7 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "PostBoxCreatePostMutation",
+    "name": "PostBoxDeletePostMutation",
     "selections": (v3/*: any*/),
     "type": "Mutation",
     "abstractKey": null
@@ -93,25 +93,25 @@ return {
   "kind": "Request",
   "operation": {
     "argumentDefinitions": [
-      (v2/*: any*/),
       (v1/*: any*/),
-      (v0/*: any*/)
+      (v0/*: any*/),
+      (v2/*: any*/)
     ],
     "kind": "Operation",
-    "name": "PostBoxCreatePostMutation",
+    "name": "PostBoxDeletePostMutation",
     "selections": (v3/*: any*/)
   },
   "params": {
-    "cacheID": "b54a86fda210c9798af20c63b1ac393d",
+    "cacheID": "741c89540f10702266737f570ecf2261",
     "id": null,
     "metadata": {},
-    "name": "PostBoxCreatePostMutation",
+    "name": "PostBoxDeletePostMutation",
     "operationKind": "mutation",
-    "text": "mutation PostBoxCreatePostMutation(\n  $username: String!\n  $password: String!\n  $content: String!\n) {\n  createPost(username: $username, password: $password, content: $content) {\n    id\n  }\n}\n"
+    "text": "mutation PostBoxDeletePostMutation(\n  $postId: String!\n  $password: String!\n  $username: String!\n) {\n  deletePost(post_id: $postId, password: $password, username: $username) {\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0862ad9c324d33fb52654be1811122ea";
+(node as any).hash = "05199a6b50f267b0d1eef1b4a0d759a1";
 
 export default node;
